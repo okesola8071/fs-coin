@@ -1,0 +1,179 @@
+<!-- templates/admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - FS Coin</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #FFD700;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 30px;
+        }
+        h1 {
+            color: #FFD700;
+            text-align: center;
+        }
+        h2 {
+            border-bottom: 2px solid #FFD700;
+            padding-bottom: 5px;
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #FFD700;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #111;
+        }
+        .btn {
+            padding: 6px 12px;
+            color: #000;
+            background-color: #FFD700;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .btn.reject {
+            background-color: crimson;
+            color: white;
+        }
+        .status {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .pending { color: orange; }
+        .approved { color: green; }
+        .rejected { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard - FS Coin</h1>
+
+    <!-- Gift Card Trades -->
+    <div class="section">
+        <h2>Pending Gift Card Trades</h2>
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Card Type</th>
+                <th>Amount</th>
+                <th>Image</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            {% for card in giftcards %}
+            <tr>
+                <td>{{ card.username }}</td>
+                <td>{{ card.card_type }}</td>
+                <td>${{ card.amount }}</td>
+                <td><a href="{{ url_for('static', filename='uploads/' ~ card.image_path) }}" target="_blank">View</a></td>
+                <td class="status {{ card.status }}">{{ card.status }}</td>
+                <td>
+                    {% if card.status == 'pending' %}
+                        <a href="/admin/giftcards/approve/{{ card.id }}">✅ Approve</a>
+                        <a href="/admin/giftcards/reject/{{ card.id }}">❌ Reject</a>
+                    {% else %}
+                        No action
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Crypto Transactions -->
+    <div class="section">
+        <h2>Pending Crypto Transactions</h2>
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Type</th>
+                <th>Crypto</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            {% for tx in transactions %}
+            <tr>
+                <td>{{ tx.username }}</td>
+                <td>{{ tx.type }}</td>
+                <td>{{ tx.crypto }}</td>
+                <td>${{ tx.amount }}</td>
+                <td class="status {{ tx.status }}">{{ tx.status }}</td>
+                <td>
+                    {% if tx.status == 'pending' %}
+                        <a href="/admin/crypto/approve/{{ tx.id }}" class="btn">✅ Approve</a>
+                        <a href="/admin/crypto/reject/{{ tx.id }}" class="btn reject">❌ Reject</a>
+                    {% else %}
+                        No action
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Crypto Prices -->
+    <div class="section">
+        <h2>Current Crypto Prices</h2>
+        <table>
+            <tr>
+                <th>Crypto</th>
+                <th>Price (USD)</th>
+            </tr>
+            {% for crypto in prices %}
+            <tr>
+                <td>{{ crypto['crypto'] }}</td>
+                <td>${{ '%.2f'|format(crypto['price']) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Withdrawal Requests -->
+    <div class="section">
+        <h2>Withdrawal Requests</h2>
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Amount</th>
+                <th>Bank</th>
+                <th>Account Name</th>
+                <th>Account Number</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            {% for w in withdrawals %}
+            <tr>
+                <td>{{ w.username }}</td>
+                <td>${{ w.amount }}</td>
+                <td>{{ w.bank_name }}</td>
+                <td>{{ w.account_name }}</td>
+                <td>{{ w.account_number }}</td>
+                <td class="status {{ w.status }}">{{ w.status }}</td>
+                <td>
+                    {% if w.status == 'pending' %}
+                        <a href="/admin/withdrawals/approve/{{ w.id }}" class="btn">✅ Approve</a>
+                        <a href="/admin/withdrawals/reject/{{ w.id }}" class="btn reject">❌ Reject</a>
+                    {% else %}
+                        No action
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</body>
+</html>

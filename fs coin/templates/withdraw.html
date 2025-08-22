@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Withdraw - FS Coin</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #FFD700;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #111;
+            padding: 25px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #222;
+            border: none;
+            border-radius: 6px;
+            color: #FFD700;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #FFD700;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e6c200;
+        }
+
+        .bank-info {
+            margin-bottom: 20px;
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        a {
+            color: #FFD700;
+            font-weight: bold;
+            margin-top: 20px;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .flash-message {
+            padding: 15px;
+            border: 1px solid #f5c6cb;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- ✅ Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-message">
+            <strong>❌ {{ message }}</strong>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <h2>Withdraw Funds</h2>
+
+    <div class="bank-info">
+        <p><strong>Bank Name:</strong> {{ bank[0] }}</p>
+        <p><strong>Account Number:</strong> {{ bank[1] }}</p>
+        <p><strong>Account Name:</strong> {{ bank[2] }}</p>
+    </div>
+
+    <form method="POST">
+        <label>Amount (₦):</label>
+        <input type="number" name="amount" step="0.01" required>
+
+        <button type="submit">Withdraw</button>
+    </form>
+
+    <a href="/add_account">✏️ Update Bank Account Info</a>
+    <br><br>
+    <a href="/dashboard">← Back to Dashboard</a>
+</body>
+</html>

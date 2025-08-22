@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trade Giftcard - FS Coin</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #FFD700;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #111;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #FFD700;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background-color: #222;
+            color: #FFD700;
+            border: none;
+            border-radius: 5px;
+        }
+        input[type="file"] {
+            padding: 8px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #FFD700;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e6c200;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #FFD700;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload Gift Card</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <label>Card Type</label>
+            <select name="card_type" required>
+                <option value="Amazon">Amazon</option>
+                <option value="iTunes">iTunes</option>
+                <option value="Steam">Steam</option>
+                <option value="Google Play">Google Play</option>
+                <option value="Others">Others</option>
+            </select>
+
+            <label>Card Amount (USD)</label>
+            <input type="number" name="amount" step="0.01" required>
+
+            <label>Upload Image</label>
+            <input type="file" name="image" accept="image/*" required>
+
+            <button type="submit">Upload</button>
+        </form>
+        <a class="back-link" href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Bank Account - FS Coin</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #FFD700;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        h2 {
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #111;
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            background-color: #222;
+            color: #FFD700;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            background-color: #FFD700;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e6c200;
+        }
+
+        a {
+            margin-top: 30px;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Add or Update Bank Account</h2>
+
+    <form method="POST">
+        <label>Bank Name:</label>
+        <input type="text" name="bank_name" required value="{{ data[2] if data else '' }}">
+
+        <label>Account Number:</label>
+        <input type="text" name="account_number" required value="{{ data[3] if data else '' }}">
+
+        <label>Account Name:</label>
+        <input type="text" name="account_name" required value="{{ data[4] if data else '' }}">
+
+        <button type="submit">💾 Save Account</button>
+    </form>
+
+    <a href="/dashboard">← Back to Dashboard</a>
+</body>
+</html>

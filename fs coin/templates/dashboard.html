@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FS Coin - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-color: #000;
+            color: #ffc107;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .wallet-section {
+            background: #111;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ffc107;
+            border-radius: 12px;
+        }
+        .wallet {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .wallet-address {
+            word-break: break-word;
+            flex: 1;
+        }
+        .qr {
+            width: 80px;
+            height: 80px;
+            margin-left: 20px;
+        }
+        .menu {
+            margin-top: 30px;
+        }
+        .menu a {
+            background: #ffc107;
+            color: #000;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin: 8px 10px 0 0;
+            display: inline-block;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ user['username'] }}</h1>
+        <p>Balance: ${{ user['balance'] }}</p>
+
+        <div class="wallet-section">
+            <h3>Wallet Addresses</h3>
+            {% for coin in ['btc', 'eth', 'usdt'] %}
+                <div class="wallet">
+                    <div class="wallet-address">
+                        <strong>{{ coin.upper() }}:</strong> {{ user[coin + '_address'] or 'Not available' }}
+                    </div>
+                    {% if qr_codes.get(coin) %}
+                        <img src="{{ url_for('static', filename='qr_codes/' + qr_codes[coin]) }}" class="qr">
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="menu">
+            <a href="{{ url_for('send') }}">Send</a>
+            <a href="{{ url_for('buy') }}">Buy</a>
+            <a href="{{ url_for('sell') }}">Sell</a>
+            <a href="{{ url_for('withdraw') }}">Withdraw</a>
+            <a href="{{ url_for('giftcard') }}">Gift Card</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

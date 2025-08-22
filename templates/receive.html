@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Receive BTC | FS Coin</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ffe680, #fcd253);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #cc7a00;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .wallet-box {
+      background-color: #f7f7f7;
+      padding: 15px;
+      font-size: 1.2rem;
+      text-align: center;
+      border: 2px dashed #f1b700;
+      border-radius: 8px;
+      word-wrap: break-word;
+    }
+
+    .qr-box {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .btn-back {
+      display: block;
+      width: fit-content;
+      margin: 30px auto 0;
+      padding: 10px 20px;
+      background-color: #f1b700;
+      color: #000;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .btn-back:hover {
+      background-color: #e0a800;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Your Wallet Address</h2>
+    <p>Share this to receive crypto:</p>
+
+    <div class="wallet-box">{{ wallet_address }}</div>
+
+<div class="qr-box">
+  <img src="https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl={{ wallet_address }}" alt="Wallet QR Code">
+</div>
+
+    <a class="btn-back" href="/dashboard">Back to Dashboard</a>
+  </div>
+</body>
+</html>
